@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
-import ShowAlert from './showAlert'; // El componente de la alerta
-import { initLogin } from './initLogin'; // La función modificada
+import React, { useState } from "react";
+import ShowAlert from "./showAlert"; 
+import { initLogin } from "./initLogin"; 
+import { loginSession } from './loginSession';
+import { dataSession } from './dataSession';
+
 
 function App() {
   const [email, setEmail] = useState("");
@@ -10,11 +13,16 @@ function App() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const success = await initLogin(email, password, setShowAlert, setAlertMessage);
-    if (success) {
-      setAlertMessage("¡Sesión iniciada con éxito!");
+    const loginSessionResult = await loginSession(email, password);
+    if (loginSessionResult) {
+      dataSession(email, password);
+      setAlertMessage('¡Sesión iniciada con éxito!');
+      setShowAlert(true);
+    } else {
+      setAlertMessage('Correo electrónico o contraseña incorrectos');
       setShowAlert(true);
     }
+ 
   };
 
   return (
