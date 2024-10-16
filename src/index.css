@@ -1,11 +1,24 @@
 
-body{
+html, body {
+  margin: 0;           
+  padding: 0;          
+  height: 100%;       
+  width: 100%;         
+}
+
+#root {
+  height: 50%;        
+  width: 50%;        
+}
+
+body {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;  
-
+  background-color: #f0f0f0;
 }
+
  .title{
   font-size: large;
   font-size: 35px;

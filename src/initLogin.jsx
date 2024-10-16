@@ -2,18 +2,16 @@ import { listUsers } from './listUsers';
 import { validateEmail } from './validateEmail';
 import { validatePassword } from './validatePassword';
 import { dataSession } from './dataSession';
-import { showAlert } from "./showAlert"
-import { useState } from "react";
 
-const [showAlert,setShowAlert] = useState(false);
-
-export async function initLogin(email, password) {
+export async function initLogin(email, password, setShowAlert, setAlertMessage) {
   if (!validateEmail(email)) {
-    showAlert('El correo electrónico no es válido');
+    setAlertMessage('El correo electrónico no es válido');
+    setShowAlert(true);
     return false;
   }
   if (!validatePassword(password)) {
-    showAlert('La contraseña debe tener al menos 4 caracteres y máximo 16');
+    setAlertMessage('La contraseña debe tener al menos 4 caracteres y máximo 16');
+    setShowAlert(true);
     return false;
   }
 
@@ -25,10 +23,13 @@ export async function initLogin(email, password) {
       await dataSession(email, password);
       return true;
     } else {
+      setAlertMessage('Correo electrónico o contraseña incorrectos');
+      setShowAlert(true);
       return false;
     }
   } catch (error) {
-    alert(error.message);
+    setAlertMessage(error.message);
+    setShowAlert(true);
     return false;
   }
 }
