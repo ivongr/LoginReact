@@ -1,5 +1,5 @@
 // expires.js
-const expiresFormatIso = () => {
+const expiresFormatIso = () :string => {
     const globaltime = new Date()
    
     
@@ -8,7 +8,7 @@ const expiresFormatIso = () => {
     return  new Date(globaltime.getTime() +  2 * 60 * 60 * 1000 ).toISOString();
 };
 
-const expiresLocal = () => {
+const expiresLocal = ():any => {
     const globaltime = new Date();
 
     const expiresLocal = new Date(globaltime.getTime() + 2 * 60 * 60 * 1000 );
