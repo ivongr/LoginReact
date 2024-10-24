@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import ShowAlert from "./showAlert"; 
-import { initLogin } from "./initLogin"; 
 import { loginSession } from './loginSession';
 import { dataSession } from './dataSession';
 
@@ -11,7 +10,7 @@ function App() {
   const [alertMessage, setAlertMessage] = useState("");
   const [showAlert, setShowAlert] = useState(false);
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event:any) => {
     event.preventDefault();
     const loginSessionResult = await loginSession(email, password);
     if (loginSessionResult) {
