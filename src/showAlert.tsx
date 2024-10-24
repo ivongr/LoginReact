@@ -1,13 +1,14 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-interface MyAlertProps {
+/*interface MyAlertProps {
   message: string,
   setShowAlert: any
-}
+}*/
 
-function ShowAlert ({ message, setShowAlert }: MyAlertProps)  {
+const  ShowAlert = () => {
   
- 
+  const [message, setMessage ] = useState ("")
+  const [alert, setShowAlert] = useState(true)
   useEffect(() => {
    const time =  setTimeout(() => {
       setShowAlert(false); // Oculta la alerta
