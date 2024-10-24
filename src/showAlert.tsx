@@ -1,11 +1,20 @@
-import React from 'react';
+import { useEffect } from "react";
 
-const ShowAlert = ({ message, setShowAlert }) => {
+interface MyAlertProps {
+  message: string,
+  setShowAlert: any
+}
+
+function ShowAlert ({ message, setShowAlert }: MyAlertProps)  {
   
  
-    const time = setTimeout(() => {
+  useEffect(() => {
+   const time =  setTimeout(() => {
       setShowAlert(false); // Oculta la alerta
     }, 5000);
+  
+    return () => clearTimeout(time);
+  },[]);
 
   return (
     <div className="alert" role="alert">
