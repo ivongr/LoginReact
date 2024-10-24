@@ -2,9 +2,6 @@
 const expiresFormatIso = () :string => {
     const globaltime = new Date()
    
-    
-    globaltime.setHours(globaltime.getHours() - 6); // Hora México
-  
     return  new Date(globaltime.getTime() +  2 * 60 * 60 * 1000 ).toISOString();
 };
 
