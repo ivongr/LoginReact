@@ -1,13 +1,12 @@
-import {FC} from 'react';
+import { FC } from 'react';
 import { useEffect } from 'react';
 
 interface AlertProps {
-  message: string,
+  message: string;
   setShowAlert: (value: boolean) => void;
 }
 
-const ShowAlert: FC<AlertProps> = ({ message, setShowAlert }) => {
-
+function ShowAlert({ message, setShowAlert }: AlertProps) {
   useEffect(() => {
     const time = setTimeout(() => {
       setShowAlert(false); // Oculta la alerta
@@ -17,10 +16,10 @@ const ShowAlert: FC<AlertProps> = ({ message, setShowAlert }) => {
   }, [setShowAlert]);
 
   return (
-    <div className="alert" role="alert">
+    <div className='alert' role='alert'>
       {message}
     </div>
   );
-};
+}
 
 export default ShowAlert;
