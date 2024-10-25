@@ -1,10 +1,10 @@
 import { listUsers } from "./listUsers.js";
 
 
-async function loginSession(email:string, password:string):Promise<boolean>{
+async function loginSession(email:string, password:string){
   try {
     const formattedEmail = email.toLowerCase();
-    const users: User[]= await listUsers();
+    const users= await listUsers();
     return users.some(user =>
       user.email.toLowerCase() === formattedEmail
       && user.password === password);
