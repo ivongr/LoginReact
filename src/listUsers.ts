@@ -1,4 +1,18 @@
-const usersjson = JSON.stringify([
+
+interface usersJsonProps{
+  name: string,
+  age: number,
+  address: {
+    city: string,
+    state: string,
+    zip: number
+  },
+  email: string,
+  password: string,
+
+}
+
+const usersjson: usersJsonProps[]= [
   {
     name: 'Suki Zukaritas',
     age: 5,
@@ -43,13 +57,15 @@ const usersjson = JSON.stringify([
     email: 'maria.gonzalez@gmail.com',
     password: 'mariag2024',
   },
-]);
+];
+
+let user = JSON.stringify(usersjson);
 
 export const getUsers = () => {
-  return new Promise((resolve, reject) => {
+  return new Promise<String>((resolve, reject) => {
     setTimeout(() => {
       try {
-        const users = JSON.parse(usersjson);
+        const users = JSON.parse(user);
         resolve(users);
       } catch (error) {
         reject(new Error('Error al cargar los usuarios.'));

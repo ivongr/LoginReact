@@ -1,6 +1,6 @@
-import { getUsers } from './listUsers.js';
+import { getUsers,users } from './listUsers.js';
 
-async function loginSession(email: string, password: string) {
+async function loginSession(email: string, password: string): Promise<users>{
   try {
     const formattedEmail = email.toLowerCase();
     const users: any = await getUsers();
