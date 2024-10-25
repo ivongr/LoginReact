@@ -1,4 +1,4 @@
-import React from 'react';
+import {FC} from 'react';
 import { useEffect } from 'react';
 
 interface AlertProps {
@@ -6,7 +6,7 @@ interface AlertProps {
   setShowAlert: (value: boolean) => void;
 }
 
-const ShowAlert: React.FC<AlertProps> = ({ message, setShowAlert }) => {
+const ShowAlert: FC<AlertProps> = ({ message, setShowAlert }) => {
 
   useEffect(() => {
     const time = setTimeout(() => {

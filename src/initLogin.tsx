@@ -2,14 +2,15 @@ import { loginSession } from './loginSession';
 import { validateEmail } from './validateEmail';
 import { validatePassword } from './validatePassword';
 import { dataSession } from './dataSession';
+import { Dispatch,SetStateAction } from 'react';
 
 
 
 export async function initLogin(
   email: string, 
   password: string, 
-  setShowAlert: React.Dispatch<React.SetStateAction<boolean>>, 
-  setAlertMessage: React.Dispatch<React.SetStateAction<string>>
+  setShowAlert: Dispatch<SetStateAction<boolean>>, 
+  setAlertMessage: Dispatch<SetStateAction<string>>
 ): Promise<void> {
   if (!validateEmail(email)) {
     setAlertMessage("El correo electrónico no es válido");

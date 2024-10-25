@@ -1,14 +1,14 @@
-import React from 'react';
+import { Dispatch, SetStateAction,FormEvent,FC} from 'react';
 
 interface LoginFormProps {
   email: string;
-  setEmail: React.Dispatch<React.SetStateAction<string>>;
+  setEmail: Dispatch<SetStateAction<string>>;
   password: string;
-  setPassword: React.Dispatch<React.SetStateAction<string>>;
-  onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+  setPassword: Dispatch<SetStateAction<string>>;
+  onSubmit: (event: FormEvent<HTMLFormElement>) => void;
 }
 
-const LoginForm: React.FC<LoginFormProps> = ({ email, setEmail, password, setPassword, onSubmit }) => {
+const LoginForm: FC<LoginFormProps> = ({ email, setEmail, password, setPassword, onSubmit }) => {
   return (
     <form id="login-form" onSubmit={onSubmit}>
       <h1 className="title">Login</h1>
