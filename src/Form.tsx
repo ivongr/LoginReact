@@ -1,22 +1,12 @@
-import { useForm } from "react-hook-form"
 
-interface IFormInput {
-    name: string,
-    password: string,
-}
+import useForm from "./useForm"
 
-export const Form: React.FC = () => {
-    const {
-        handleSubmit
-    } = useForm<IFormInput>();
+function App(){
 
-    const onSubmit = (data: IFormInput) => {
-        console.log(data);
-    };
-
+    const {handleChange,values, errors} = useForm();
     return(
      
-        <form id="login-form" onSubmit={handleSubmit(onSubmit)}>
+        <form id="login-form" >
           <h1 className="title">Login</h1>
           <label>
             <i className="fa-solid fa-envelope" aria-label="Icon Email"></i>
@@ -24,8 +14,7 @@ export const Form: React.FC = () => {
               type="email"
               id="email"
               placeholder="Ej: SukiZukaritas@gmail.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={handleChange}
               required
             />
           </label>
@@ -36,15 +25,15 @@ export const Form: React.FC = () => {
               id="password"
               aria-label="Icon Password"
               placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+            
+        
               required
             />
           </label>
           <button id="btnlogin" className="btn success pulse-effect shadow-effect" type="submit">
             Iniciar Sesión
           </button>
-          {showAlert && <ShowAlert message={alertMessage} setShowAlert={setShowAlert} />}
+
         </form>
       
     )
