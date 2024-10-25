@@ -1,5 +1,5 @@
 import { useState, FormEvent } from "react";
-import ShowAlert from "./showAlert";
+import Alert from "./Alert"
 import { initLogin } from "./initLogin";
 import LoginForm from "./LoginForm";
 
@@ -7,11 +7,11 @@ function App() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [alertMessage, setAlertMessage] = useState<string>("");
-  const [showAlert, setShowAlert] = useState<boolean>(false);
+  const [Alert, setAlert] = useState<boolean>(false);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await initLogin(email, password, setShowAlert, setAlertMessage);
+    await initLogin(email, password, setAlert, setAlertMessage);
   };
 
   return (
@@ -23,8 +23,8 @@ function App() {
         setPassword={setPassword}
         onSubmit={handleSubmit}
       />
-      {showAlert && (
-        <ShowAlert message={alertMessage} setShowAlert={setShowAlert} />
+      {Alert && (
+        <Alert message={alertMessage} setAlert={setAlert} />
       )}
     </>
   );
