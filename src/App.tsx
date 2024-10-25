@@ -1,64 +1,35 @@
 import React, { useState } from "react";
-import ShowAlert from "./showAlert"; 
-import { initLogin } from "./initLogin"; 
-import { loginSession } from './loginSession';
-import { dataSession } from './dataSession';
+import ShowAlert from "./showAlert";
+import { initLogin } from "./initLogin";
+import LoginForm from "./LoginForm";
 
+interface AppProps {}
 
-function App() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [alertMessage, setAlertMessage] = useState("");
-  const [showAlert, setShowAlert] = useState(false);
+const App: React.FC<AppProps> = () => {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [alertMessage, setAlertMessage] = useState<string>("");
+  const [showAlert, setShowAlert] = useState<boolean>(false);
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const loginSessionResult = await loginSession(email, password);
-    if (loginSessionResult) {
-      dataSession(email, password);
-      setAlertMessage('¡Sesión iniciada con éxito!');
-      setShowAlert(true);
-    } else {
-      setAlertMessage('Correo electrónico o contraseña incorrectos');
-      setShowAlert(true);
-    }
- 
+    await initLogin(email, password, setShowAlert, setAlertMessage);
   };
 
   return (
     <div className="diagonal-gradient">
-      <form id="login-form" onSubmit={handleSubmit}>
-        <h1 className="title">Login</h1>
-        <label>
-          <i className="fa-solid fa-envelope" aria-label="Icon Email"></i>
-          <input
-            type="email"
-            id="email"
-            placeholder="Ej: SukiZukaritas@gmail.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          <i className="fa-solid fa-lock"></i>
-          <input
-            type="password"
-            id="password"
-            aria-label="Icon Password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        <button id="btnlogin" className="btn success pulse-effect shadow-effect" type="submit">
-          Iniciar Sesión
-        </button>
-        {showAlert && <ShowAlert message={alertMessage} setShowAlert={setShowAlert} />}
-      </form>
+      <LoginForm
+        email={email}
+        setEmail={setEmail}
+        password={password}
+        setPassword={setPassword}
+        onSubmit={handleSubmit}
+      />
+      {showAlert && (
+        <ShowAlert message={alertMessage} setShowAlert={setShowAlert} />
+      )}
     </div>
   );
-}
+};
 
 export default App;
