@@ -2,14 +2,14 @@ import { loginSession } from './loginSession';
 import { validateEmail } from './validateEmail';
 import { validatePassword } from './validatePassword';
 import { dataSession } from './dataSession';
-import { Dispatch,SetStateAction } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 
 
 
 export async function initLogin(
-  email: string, 
-  password: string, 
-  setShowAlert: Dispatch<SetStateAction<boolean>>, 
+  email: string,
+  password: string,
+  setShowAlert: Dispatch<SetStateAction<boolean>>,
   setAlertMessage: Dispatch<SetStateAction<string>>
 ): Promise<void> {
   if (!validateEmail(email)) {
@@ -34,10 +34,10 @@ export async function initLogin(
       setAlertMessage('Correo electrónico o contraseña incorrectos');
       setShowAlert(true);
     }
-  } catch (error:any) {
+  } catch (error: any) {
     setAlertMessage(error.message);
     setShowAlert(true);
     return;
   }
- 
+
 }

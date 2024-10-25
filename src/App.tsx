@@ -1,9 +1,7 @@
-import { useState, FC, FormEvent } from "react";
+import { useState, FormEvent } from "react";
 import ShowAlert from "./showAlert";
 import { initLogin } from "./initLogin";
 import LoginForm from "./LoginForm";
-
-
 
 function App() {
   const [email, setEmail] = useState<string>("");
