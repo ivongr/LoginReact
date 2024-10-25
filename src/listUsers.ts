@@ -1,4 +1,4 @@
-const usersjson = JSON.stringify([
+const usersjson: string = JSON.stringify([
     {
         "name": "Suki Zukaritas",
         "age": 5,

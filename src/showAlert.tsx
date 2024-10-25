@@ -1,8 +1,13 @@
 import React from 'react';
 
-const ShowAlert = ({ message, setShowAlert }) => {
+interface AlertProps{
+  message: string,
+  setShowAlert: (value: boolean) => void;
+}
+
+const ShowAlert: React.FC<AlertProps> = ({ message, setShowAlert }) => {
   
- 
+
     const time = setTimeout(() => {
       setShowAlert(false); // Oculta la alerta
     }, 5000);
