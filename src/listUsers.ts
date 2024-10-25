@@ -1,4 +1,4 @@
-const usersjson:string = JSON.stringify([
+const usersjson = JSON.stringify([
     {
         "name": "Suki Zukaritas",
         "age": 5,
@@ -46,8 +46,8 @@ const usersjson:string = JSON.stringify([
 ]);
 
 
-export const listUsers = ():Promise<string> => {
-  return new Promise((resolve, reject)  => {
+export const listUsers = () => {
+  return new Promise((resolve, reject) => {
     setTimeout(() => {
       try {
         const users = JSON.parse(usersjson);

@@ -1,21 +1,20 @@
-import { useEffect, useState } from "react";
+import React from 'react';
+import { useEffect } from 'react';
 
-/*interface MyAlertProps {
+interface AlertProps {
   message: string,
-  setShowAlert: any
-}*/
+  setShowAlert: (value: boolean) => void;
+}
 
-const  ShowAlert = () => {
-  
-  const [message, setMessage ] = useState ("")
-  const [alert, setShowAlert] = useState(true)
+const ShowAlert: React.FC<AlertProps> = ({ message, setShowAlert }) => {
+
   useEffect(() => {
-   const time =  setTimeout(() => {
+    const time = setTimeout(() => {
       setShowAlert(false); // Oculta la alerta
     }, 5000);
-  
+
     return () => clearTimeout(time);
-  },[]);
+  }, [setShowAlert]);
 
   return (
     <div className="alert" role="alert">
