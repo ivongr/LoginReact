@@ -1,14 +1,20 @@
-import { getUsers,users } from './listUsers.js';
-
-async function loginSession(email: string, password: string): Promise<users>{
+import { getUsers,User } from './listUsers.js';
+ 
+async function loginSession(email: string, password: string): Promise<User>{
   try {
     const formattedEmail = email.toLowerCase();
-    const users: any = await getUsers();
-    return users.some(
-      (user: any) => user.email.toLowerCase() === formattedEmail && user.password === password
+    const users = await getUsers();
+    const user = users.find(
+      user => user.email.toLowerCase() === formattedEmail && user.password === password
     );
-  } catch (error: any) {
-    alert(error.message);
+
+    if(!user){
+      throw new Error ("Correo electrónico o contraseña incorrectos")
+    }
+    return user;
+  } catch (err:any) {
+    alert(err.message);
+    throw err;
   } finally {
     console.log('Proceso finalizado');
   }
