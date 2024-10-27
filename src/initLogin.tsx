@@ -9,8 +9,8 @@ import { Dispatch, SetStateAction } from 'react';
 export async function initLogin(
   email: string,
   password: string,
-  setShowAlert: Dispatch<SetStateAction<boolean>>,
-  setAlertMessage: Dispatch<SetStateAction<string>>
+  setShowAlert: (show: boolean) => void,
+  setAlertMessage: (message: string) => void
 ): Promise<void> {
   if (!validateEmail(email)) {
     setAlertMessage("El correo electrónico no es válido");
@@ -25,19 +25,16 @@ export async function initLogin(
 
   try {
 
-    const loginSessionResult = await loginSession(email, password);
-    if (loginSessionResult) {
+     await loginSession(email, password);
+   
       dataSession(email, password);
       setAlertMessage('¡Sesión iniciada con éxito!');
       setShowAlert(true);
-    } else {
-      setAlertMessage('Correo electrónico o contraseña incorrectos');
-      setShowAlert(true);
-    }
+  
   } catch (error: any) {
-    setAlertMessage(error.message);
+    setAlertMessage(error.message)
     setShowAlert(true);
-    return;
+   
   }
 
 }

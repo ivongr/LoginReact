@@ -7,11 +7,11 @@ function App() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [alertMessage, setAlertMessage] = useState<string>("");
-  const [Alert, setAlert] = useState<boolean>(false);
+  const [showAlert, setshowAlert] = useState<boolean>(false);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await initLogin(email, password, setAlert, setAlertMessage);
+    await initLogin(email, password, setshowAlert, setAlertMessage);
   };
 
   return (
@@ -23,8 +23,8 @@ function App() {
         setPassword={setPassword}
         onSubmit={handleSubmit}
       />
-      {Alert && (
-        <Alert message={alertMessage} setAlert={setAlert} />
+      {showAlert && (
+        <Alert message={alertMessage} setAlert={setshowAlert} />
       )}
     </>
   );
