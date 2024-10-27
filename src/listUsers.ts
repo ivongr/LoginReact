@@ -61,14 +61,15 @@ const usersjson: User[]= [
 
 let user = JSON.stringify(usersjson);
 
-export const getUsers = () => {
-  return new Promise<User[]>((resolve,reject) => {
+export function getUsers(): Promise<User[]> {
+  return new Promise<User[]>((resolve, reject) => {
     setTimeout(() => {
       try {
         const users = JSON.parse(user);
         resolve(users);
       } catch (error) {
         reject(new Error('Error al cargar los usuarios.'));
-   } }, 1000);
-    });
-};
+      }
+    }, 1000);
+  });
+}
