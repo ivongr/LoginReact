@@ -1,14 +1,14 @@
-import { Dispatch, SetStateAction,FormEvent,FC} from 'react';
+import { FormEvent} from 'react';
 
 interface LoginFormProps {
   email: string;
-  setEmail: Dispatch<SetStateAction<string>>;
+  setEmail: (email:string) => void;
   password: string;
-  setPassword: Dispatch<SetStateAction<string>>;
+  setPassword:(email:string) => void;
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
 }
 
-const LoginForm: FC<LoginFormProps> = ({ email, setEmail, password, setPassword, onSubmit }) => {
+function LoginForm ({ email, setEmail, password, setPassword,onSubmit}: LoginFormProps) {
   return (
     <form id="login-form" onSubmit={onSubmit}>
       <h1 className="title">Login</h1>
@@ -35,7 +35,7 @@ const LoginForm: FC<LoginFormProps> = ({ email, setEmail, password, setPassword,
           required
         />
       </label>
-      <button id="btnlogin" className="btn success pulse-effect shadow-effect" type="submit">
+      <button id="btnlogin" className="btn success pulse-effect shadow-effect" type="submit" >
         Iniciar Sesión
       </button>
     </form>
