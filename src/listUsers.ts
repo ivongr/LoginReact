@@ -1,5 +1,4 @@
-
-export interface User{
+export interface User {
   name: string,
   age: number,
   address: {
@@ -12,7 +11,7 @@ export interface User{
 
 }
 
-const usersjson: User[]= [
+const usersjson: User[] = [
   {
     name: 'Suki Zukaritas',
     age: 5,
@@ -55,20 +54,24 @@ const usersjson: User[]= [
       zip: 91000,
     },
     email: 'maria.gonzalez@gmail.com',
-    password: 'mariag2024',
+   password: '12345p'
   },
 ];
 
 let user = JSON.stringify(usersjson);
 
 export function getUsers(): Promise<User[]> {
-  return new Promise<User[]>((resolve, reject) => {
+  return new Promise((resolve) => {
     setTimeout(() => {
       try {
         const users = JSON.parse(user);
         resolve(users);
       } catch (error) {
-        reject(new Error('Error al cargar los usuarios.'));
+        if (error instanceof ReferenceError) {
+          console.log("Error al obtener los usuarios", error.message)
+        } else {
+          console.log("Error desconocido")
+        }
       }
     }, 1000);
   });
