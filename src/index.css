@@ -1,11 +1,4 @@
 
-html, body {
-  margin: 0;           
-  padding: 0;          
-  height: 100%;       
-  width: 100%;         
-}
-
 #root {
   height: 50%;        
   width: 50%;        
@@ -65,18 +58,20 @@ form label input{
 }
 
 
-.btn {
+.btn.success {
   border:none;
   color:white; 
-  padding: 20px 15px;
+  /*padding: 20px 15px;*/
   font-family :'Times New Roman', Times, serif;
   cursor: pointer;
+  height: 72px;
+  width: 90px;
   border-radius: 25px;
   cursor: pointer;
+  background-image: linear-gradient(to right, #28a745, 
+  #56c150b3)
 }
 
-.success {background-image: linear-gradient(to right, #28a745, 
-  #56c150b3);} 
 
 
 .pulse-effect:active {
