@@ -59,21 +59,28 @@ const userString = JSON.stringify([
   },
 ]);
 
+const UserObjectSchema = v.object({
+  name: v.string(),
+  age: v.number(),
+  address: v.object({
+    city: v.string(),
+    state: v.string(),
+    zip: v.number(),
+  }),
+  email: v.string(),
+  password: v.string(),
+})
 
 export function getUsers(): Promise<User[]> {
   return new Promise((resolve) => {
     setTimeout(() => {
       try {
-        const UserPromiseSchema = v.pipeAsync(
-          v.promise(), v.awaitAsync(),
-          v.undefined(), v.any(), v.unknown());
-
         const users = JSON.parse(userString);
-
+        const validateUser = v.parse(UserObjectSchema,users)
         resolve(users);
       } catch (error) {
-        console.error(error);
-      }
+     console.log(error)
+     }
     }, 1000);
   });
 }
