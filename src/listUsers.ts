@@ -21,7 +21,7 @@ const userString = JSON.stringify([
       state: 'Ver',
       zip: 4558,
     },
-    email: 'suki@gmail.com',
+    email: "suki@gmail.com",
     password: '12345',
   },
   {
@@ -76,8 +76,8 @@ export function getUsers(): Promise<User[]> {
     setTimeout(() => {
       try {
         const users = JSON.parse(userString);
-        const validateUser = v.parse(UserObjectSchema,users)
-        resolve(users);
+        const validatedUsers = users.map((user:any) => v.parse(UserObjectSchema, user));
+        resolve(validatedUsers);
       } catch (error) {
      console.log(error)
      }
