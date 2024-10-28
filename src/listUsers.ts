@@ -1,3 +1,4 @@
+import * as v from "valibot";
 export interface User {
   name: string,
   age: number,
@@ -11,7 +12,7 @@ export interface User {
 
 }
 
-const usersjson: User[] = [
+const userString = JSON.stringify([
   {
     name: 'Suki Zukaritas',
     age: 5,
@@ -54,24 +55,24 @@ const usersjson: User[] = [
       zip: 91000,
     },
     email: 'maria.gonzalez@gmail.com',
-   password: '12345p'
+    password: '12345p'
   },
-];
+]);
 
-let user = JSON.stringify(usersjson);
 
 export function getUsers(): Promise<User[]> {
   return new Promise((resolve) => {
     setTimeout(() => {
       try {
-        const users = JSON.parse(user);
+        const UserPromiseSchema = v.pipeAsync(
+          v.promise(), v.awaitAsync(),
+          v.undefined(), v.any(), v.unknown());
+
+        const users = JSON.parse(userString);
+
         resolve(users);
       } catch (error) {
-        if (error instanceof ReferenceError) {
-          console.log("Error al obtener los usuarios", error.message)
-        } else {
-          console.log("Error desconocido")
-        }
+        console.error(error);
       }
     }, 1000);
   });
