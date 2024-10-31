@@ -1,4 +1,4 @@
-import * as v from "valibot";
+import { number, object, parse, string }from "valibot";
 export interface User {
   name: string,
   age: number,
@@ -59,16 +59,16 @@ const userString = JSON.stringify([
   },
 ]);
 
-const UserObjectSchema = v.object({
-  name: v.string(),
-  age: v.number(),
-  address: v.object({
-    city: v.string(),
-    state: v.string(),
-    zip: v.number(),
+const UserObjectSchema = object({
+  name: string(),
+  age: number(),
+  address: object({
+    city: string(),
+    state: string(),
+    zip: number(),
   }),
-  email: v.string(),
-  password: v.string(),
+  email: string(),
+  password: string(),
 })
 
 export function getUsers(): Promise<User[]> {
@@ -76,7 +76,7 @@ export function getUsers(): Promise<User[]> {
     setTimeout(() => {
       try {
         const users = JSON.parse(userString);
-        const validatedUsers = users.map((user:any) => v.parse(UserObjectSchema, user));
+        const validatedUsers = users.map((user:any) => parse(UserObjectSchema, user));
         resolve(validatedUsers);
       } catch (error) {
      console.log(error)
