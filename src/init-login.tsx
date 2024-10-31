@@ -1,7 +1,7 @@
-import { loginSession } from './loginSession';
-import { validateEmail } from './validateEmail';
-import { validatePassword } from './validatePassword';
-import { dataSession } from './dataSession';
+import { loginSession } from './login-session';
+import { validateEmail } from './validate-email';
+import { validatePassword } from './validate-password';
+import { dataSession } from './data-session';
 
 
 export async function initLogin(

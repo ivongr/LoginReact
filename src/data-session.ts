@@ -1,5 +1,5 @@
-import { expiresFormatIso, expiresLocal } from './expires';
-import { encryptValue } from "./encryptValue";
+import { expiresFormatIso, expiresLocal } from './expires-date';
+import { encryptValue } from "./encrypt-value";
 
 export async function dataSession(email:string, password:string):Promise<any> {
   const passEnc = await encryptValue(password);

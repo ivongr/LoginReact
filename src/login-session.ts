@@ -1,4 +1,4 @@
-import { getUsers,User } from './listUsers.js';
+import { getUsers,User } from './list-users.js';
  
 async function loginSession(email: string, password: string): Promise<User>{
   try {
