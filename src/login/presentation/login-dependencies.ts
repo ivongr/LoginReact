@@ -1,31 +1,40 @@
-import { DIContainer } from '../../presentation/di-container';
+import { DIContainer } from '../../infrastructure/di-container';
 import { validateEmail } from '../domain/validation/validate-email';
 import { validatePassword } from '../domain/validation/validate-password';
 import { loginSession } from '../domain/session-login';
-import { dataSession } from '../domain/data-session';
-import { encryptValue } from '../domain/encrypt-value';
+import { dataSession } from '../../domain/data-session';
+import { encryptValue } from '../../domain/encrypt-value';
 import { expiresDateFormatIso, expiresDateLocal } from '../domain/expires-date';
 
 const container = new DIContainer();
 
-container.registerSingletone(() => validateEmail, 'validateEmail');
+const keys = {validateEmail:'validateEmail',
+    validatePassword:'validatePassword',
+    loginSession:'loginSession',
+    dataSession:'dataSession',
+    expiresDateFormatIso:'expires-format-iso',
+    expiresDateLocal:'expires-local',
+    encryptValue: 'encrypt-value'
+};
 
-container.registerSingletone(() => validatePassword, 'validatePassword');
+container.registerSingletone(() => validateEmail, keys.validateEmail);
 
-container.registerSingletone(() => loginSession, 'loginSession');
+container.registerSingletone(() => validatePassword, keys.validatePassword);
 
-container.registerSingletone(() => dataSession, 'dataSession');
+container.registerSingletone(() => loginSession, keys.loginSession);
 
-container.registerSingletone(() => expiresDateFormatIso, 'expires-format-iso');
+container.registerSingletone(() => dataSession, keys.dataSession);
 
-container.registerSingletone(() => expiresDateLocal, 'expires-local');
+container.registerSingletone(() => expiresDateFormatIso, keys.expiresDateFormatIso);
 
-container.registerSingletone(() => encryptValue, 'encrypt-value');
+container.registerSingletone(() => expiresDateLocal, keys.expiresDateLocal);
 
-export { container };
+container.registerSingletone(() => encryptValue, keys.encryptValue);
+
+export { container};
 
 // export const loginDependencies = {
 //   get service(): ILoginService {
 //     return container.get(keys.service);
 //   },
-// };
+// }; //get para evitar importar varios archivos 

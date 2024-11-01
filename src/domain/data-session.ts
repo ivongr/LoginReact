@@ -1,4 +1,4 @@
-import { container } from '../presentation/login-dependencies';
+import { container } from '../login/presentation/login-dependencies';
 
 
 export async function dataSession(email: string, password: string): Promise<void> {
