@@ -1,14 +1,11 @@
 import { container } from '../presentation/login-dependencies';
-export async function initLogin(
-  email: string,
-  password: string,
-  setShowAlert: (show: boolean) => void,
-  setAlertMessage: (message: string) => void
-): Promise<void> {
+export async function initLogin(email: string,password: string,setShowAlert: (show: boolean) => void,setAlertMessage: (message: string) => void): Promise<void> {
+  
   const validateEmail = container.get<(email: string) => boolean>('validateEmail');
   const validatePassword = container.get<(password: string) => boolean>('validatePassword');
   const loginSession = container.get<(email: string, password: string) => Promise<void>>('loginSession');
   const dataSession = container.get<(email: string, password: string) => void>('dataSession');
+  
   if (!validateEmail(email)) {
     setAlertMessage("El correo electrónico no es válido");
     setShowAlert(true);

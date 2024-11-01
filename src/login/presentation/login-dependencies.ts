@@ -1,7 +1,7 @@
 import { DIContainer } from "../../presentation/di-container";
 import { validateEmail } from "../adapters/validation/validate-email";
 import { validatePassword } from "../adapters/validation/validate-password";
-import { loginSession } from "../domain/login-session";
+import { loginSession } from "../domain/session-login";
 import { dataSession } from "../adapters/data-session";
 import { encryptValue } from "../adapters/encrypt-value";
 import { expiresDateFormatIso, expiresDateLocal } from "../adapters/expires-date";
