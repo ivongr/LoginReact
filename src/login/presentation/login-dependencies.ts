@@ -5,6 +5,7 @@ import { loginSession } from "../domain/login-session";
 import { dataSession } from "../adapters/data-session";
 import { encryptValue } from "../adapters/encrypt-value";
 import { expiresDateFormatIso, expiresDateLocal } from "../adapters/expires-date";
+
 const container = new DIContainer();
 
 container.registerSingletone(() => validateEmail, "validateEmail");

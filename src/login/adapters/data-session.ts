@@ -1,10 +1,10 @@
 import { container } from '../presentation/login-dependencies';
 
-const expiresFormatIso:any = container.get("expires-format-iso");
-const expiresLocal:any = container.get("expires-local");
-const encryptValue:any = container.get("encrypt-value")
 
-export async function dataSession(email:string, password:string):Promise<void> {
+export async function dataSession(email: string, password: string): Promise<void> {
+  const expiresFormatIso: any = container.get("expires-format-iso");
+  const expiresLocal: any = container.get("expires-local");
+  const encryptValue: any = container.get("encrypt-value")
   const passEnc = await encryptValue(password);
   const sessionData = {
     email,
