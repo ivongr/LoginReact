@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 
-interface AlertProps {
+interface alertProps {
   message: string;
   setShowAlert: (value: boolean) => void;
 }
 
-function alert({ message, setShowAlert }: AlertProps) {
+function alert({ message, setShowAlert }: alertProps) {
   useEffect(() => {
     const time = setTimeout(() => {
       setShowAlert(false); // Oculta la alerta
