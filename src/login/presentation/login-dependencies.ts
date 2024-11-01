@@ -1,10 +1,10 @@
 import { DIContainer } from "../../presentation/di-container";
-import { validateEmail } from "../adapters/validation/validate-email";
-import { validatePassword } from "../adapters/validation/validate-password";
+import { validateEmail } from "../domain/validation/validate-email";
+import { validatePassword } from "../domain/validation/validate-password";
 import { loginSession } from "../domain/session-login";
-import { dataSession } from "../adapters/data-session";
-import { encryptValue } from "../adapters/encrypt-value";
-import { expiresDateFormatIso, expiresDateLocal } from "../adapters/expires-date";
+import { dataSession } from "../domain/data-session";
+import { encryptValue } from "../domain/encrypt-value";
+import { expiresDateFormatIso, expiresDateLocal } from "../domain/expires-date";
 
 const container = new DIContainer();
 
