@@ -1,6 +1,4 @@
-import { number, object, parse, string } from "valibot";
-import { IUser } from "./user";
-const userString = JSON.stringify([
+const listUsersString = JSON.stringify([
   {
     name: 'Suki Zukaritas',
     age: 5,
@@ -47,28 +45,4 @@ const userString = JSON.stringify([
   },
 ]);
 
-const UserObjectSchema = object({
-  name: string(),
-  age: number(),
-  address: object({
-    city: string(),
-    state: string(),
-    zip: number(),
-  }),
-  email: string(),
-  password: string(),
-})
-
-export function getUsers(): Promise<IUser[]> {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      try {
-        const users = JSON.parse(userString);
-        const validatedUsers = users.map((user:any) => parse(UserObjectSchema, user));
-        resolve(validatedUsers);
-      } catch (error) {
-     console.log(error)
-     }
-    }, 1000);
-  });
-}
+export { listUsersString };
