@@ -1,5 +1,5 @@
 import {  parse } from "valibot";
-import { IUser } from "./user";
+import { IUser } from "./entities/user";
 import { validateUserObjectSchema } from "../validation/validate-user-object-schema";
 import { listUsersString } from "./list-users-string";
 
