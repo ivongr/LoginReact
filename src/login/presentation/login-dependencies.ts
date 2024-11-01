@@ -1,6 +1,6 @@
 import { DIContainer } from '../../infrastructure/di-container';
-import { validateEmail } from '../domain/validation/validate-email';
-import { validatePassword } from '../domain/validation/validate-password';
+import { validateEmail } from '../domain/validations/validate-email';
+import { validatePassword } from '../domain/validations/validate-password';
 import { loginSession } from '../domain/session-login';
 import { dataSession } from '../../domain/data-session';
 import { encryptValue } from '../../domain/encrypt-value';

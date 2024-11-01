@@ -1,6 +1,6 @@
 import {  parse } from "valibot";
 import { IUser } from "./entities/user";
-import { validateUserObjectSchema } from "../validation/validate-user-object-schema";
+import { validateUserObjectSchema } from "../validations/validate-user-object-schema";
 import { listUsersString } from "./list-users-string";
 
 export function getUsers(): Promise<IUser[]> {

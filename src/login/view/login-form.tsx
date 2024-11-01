@@ -1,4 +1,4 @@
-import { ILogin } from '../domain/login';
+import { ILogin } from '../domain/entities/login';
 
 // function loginUser() {
 //   loginDependencies.service.login({ user: '', password: '' }).then(() => {
