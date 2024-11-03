@@ -1,6 +1,6 @@
 import { useState, FormEvent } from "react";
 import Alert from "./alert"
-import { initLogin } from "../login/domain/init-login";
+import { initLogin } from "../../login/domain/init-login";
 import LoginForm from "../login/view/login-form";
 
 function App() {
