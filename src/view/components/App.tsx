@@ -1,30 +1,31 @@
+// src/view/components/App.tsx
 import { useState, FormEvent } from "react";
-import Alert from "./alert"
+import Alert from "./alert";
 import { initLogin } from "../../login/domain/init-login";
-import LoginForm from "../login/view/login-form";
+import LoginForm from '../../login/view/login-form';
 
-function App() {
+const App = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [alertMessage, setAlertMessage] = useState<string>("");
-  const [showAlert, setshowAlert] = useState<boolean>(false);
+  const [showAlert, setShowAlert] = useState<boolean>(false);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await initLogin(email, password, setshowAlert, setAlertMessage);
+    await initLogin(email, password, setShowAlert, setAlertMessage);
   };
 
   return (
     <>
       <LoginForm
         email={email}
-        setEmail={setEmail}
+        setEmail={setEmail}         
         password={password}
-        setPassword={setPassword}
-        onSubmit={handleSubmit}
+        setPassword={setPassword}   
+        onSubmit={handleSubmit}      
       />
       {showAlert && (
-        <Alert message={alertMessage} setShowAlert={setshowAlert} />
+        <Alert message={alertMessage} setShowAlert={setShowAlert} />
       )}
     </>
   );
