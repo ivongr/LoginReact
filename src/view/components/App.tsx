@@ -2,13 +2,14 @@
 import { useState, FormEvent } from "react";
 import Alert from "./alert";
 import { initLogin } from "../../login/domain/init-login";
-import LoginForm from '../../login/view/login-form';
+import LoginForm from '../../login/view/components/login-form';
+import useStore from "../../login/domain/store";
 
 const App = () => {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [alertMessage, setAlertMessage] = useState<string>("");
+  const { email, setEmail, password, setPassword } = useStore();
   const [showAlert, setShowAlert] = useState<boolean>(false);
+  const [alertMessage, setAlertMessage] = useState<string>('');
+
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
