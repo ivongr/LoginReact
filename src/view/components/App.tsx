@@ -1,4 +1,3 @@
-// src/view/components/App.tsx
 import { useState, FormEvent } from "react";
 import Alert from "./alert";
 import { initLogin } from "../../login/domain/init-login";
@@ -15,6 +14,7 @@ const App = () => {
     event.preventDefault();
     await initLogin(email, password, setShowAlert, setAlertMessage);
   };
+  
 
   return (
     <>

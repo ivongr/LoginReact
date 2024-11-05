@@ -5,7 +5,13 @@ import { ILogin } from '../../domain/entities/login';
 //     redirectToLoginPage();
 //   });
 // }
-function LoginForm({ email, setEmail, password, setPassword, onSubmit }: ILogin) {
+
+interface ILoginFormProps extends ILogin {
+  setEmail: (email: string) => void;
+  setPassword: (password: string) => void;
+  onSubmit: (event: React.FormEvent<HTMLFormElement>) => Promise<void>;
+}
+function LoginForm({ email, setEmail, password, setPassword, onSubmit }: ILoginFormProps) {
   return (
     <form id='login-form' onSubmit={onSubmit}>
       <h1 className='title'>Login</h1>
