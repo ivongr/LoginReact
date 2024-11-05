@@ -1,43 +1,42 @@
 import { persist } from 'zustand/middleware';
-
-import { useAuthStore } from '../login/domain/expires-date';
+import { create } from 'zustand';
 import { encryptValue } from './encrypt-value';
-import { create, createStore } from 'zustand';
+import { useAuthStore } from '../login/domain/expires-date';
 
-/*export async function dataSession(email: string, password: string) {
-  const passEnc = await encryptValue(password);
-  const  {dateIso,dateLocal}  = useAuthStore.getState();
-  const sessionData = {
-    email,
-    password: passEnc,
-    expiresISO: dateIso, 
-    expiresLocal: dateLocal,
-  };
-  localStorage.setItem('key', JSON.stringify(sessionData));
-}*/
-
-interface ISessionStore extends IAuthStoreData, IAuthStoreAction {
-
-}
 interface IAuthStoreData {
-  data: {
-    email: string,
-    password: string
-  }
-};
-
-interface IAuthStoreAction {
-  setSessionData: (nextData: IAuthStoreData['data']) => void;
+  email: string;
+  password: string;  
+  expiresISO: string;
+  expiresLocal: string;
 }
 
+interface ISessionStore {
+  data: IAuthStoreData;
+  setSessionData: (email: string, password: string) => Promise<void>;
+}
 
-export const useSessionStore = createStore<ISessionStore>()(
+export const useSessionStore = create<ISessionStore>()(
   persist(
     (set) => ({
-      data: { email: '', password: '' },
-      setSessionData: (data) => set({ data })
+      data: {
+        email: '',
+        password: '',
+        expiresISO: '',
+        expiresLocal: '',
+      },
+      setSessionData: async (email, password) => {
+        const passEnc = await encryptValue(password);
+        const { dateIso, dateLocal } = useAuthStore.getState();
+        set({
+          data: {
+            email,
+            password: passEnc,
+            expiresISO: dateIso,
+            expiresLocal: dateLocal,
+          }
+        });
+      }
     }),
     { name: 'session-storage' }
-  ),
-)
-
+  )
+);
