@@ -3,7 +3,6 @@ import { ILoginParams } from './entities/login-params';
 import { loginSession } from './session-login';
 import { dataSession } from '../../domain/data-session';
 
-
 export async function initLogin(
   email: string,
   password: string,

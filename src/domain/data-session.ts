@@ -1,23 +1,11 @@
-import { encryptValue } from "./encrypt-value";
-import useExpirationStore from "../login/domain/expires-date";
+import { encryptValue } from './encrypt-value';
 
-export async function dataSession(email: string, password: string): Promise<void> {
-  const { updateExpiration, expiresISO, expiresLocal } = useExpirationStore.getState();
-
-  // Actualiza las fechas de expiración
-  updateExpiration();
-
-  // Encripta la contraseña
+export async function dataSession(email: string, password: string) {
   const passEnc = await encryptValue(password);
-
- 
   const sessionData = {
     email,
     password: passEnc,
-    expiresISO,
-    expiresLocal,
+    expiresISO: new Date().toISOString(), 
   };
-
-
-  localStorage.setItem("key", JSON.stringify(sessionData));
+  localStorage.setItem('key', JSON.stringify(sessionData));
 }

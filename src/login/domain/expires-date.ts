@@ -1,25 +1,23 @@
-import { create } from 'zustand';
+import {create} from 'zustand';
 
-interface IExpirationStore {
-  expiresISO: string;
-  expiresLocal: string;
-  updateExpiration: () => void;
-}
 
-const useExpirationStore = create<IExpirationStore>((set) => ({
-  expiresISO: '',
-  expiresLocal: '',
-  updateExpiration: () => {
+type State = {
+  dateIso: string;
+};
+
+type Action = {
+  updateDateIso: () => void;
+};
+
+export const useDateStore = create<State & Action>((set) => ({
+  dateIso: '',
+  updateDateIso: () => {
     const globalTime = new Date();
-    const expirationTime = globalTime.getTime() + 2 * 60 * 60 * 1000;
-
-    set({
-      expiresISO: new Date(expirationTime).toISOString(),
-      expiresLocal: new Date(expirationTime).toLocaleString("es-MX", {
-        timeZone: "America/Mexico_City",
-      }),
-    });
+    const expirationTime = globalTime.getTime() + 2 * 60 * 60 * 1000; 
+    set({ dateIso: new Date(expirationTime).toISOString() });
   },
 }));
 
-export default useExpirationStore;
+
+
+
