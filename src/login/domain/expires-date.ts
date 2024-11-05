@@ -1,17 +1,19 @@
 import {create} from 'zustand';
 
+interface IAuthStore extends IAuthStoreData, IAuthStoreAction {
 
-type State = {
+}
+interface IAuthStoreData  {
   dateIso: string;
   dateLocal: string;
 };
 
-type Action = {
+interface IAuthStoreAction  {
   updateDateIso: () => void;
   updateDateLocal: () => void;
 };
 
-export const useDateStore = create<State & Action>((set) => ({
+export const useAuthStore = create<IAuthStore>((set) => ({
   dateIso: '',
   updateDateIso: () => {
     const globalTime = new Date();
@@ -21,7 +23,6 @@ export const useDateStore = create<State & Action>((set) => ({
   dateLocal:'',
   updateDateLocal: () => {
     const globaltime = new Date();
-
     const expiresLocal = new Date(globaltime.getTime() + 2 * 60 * 60 * 1000 );
       set({ dateLocal: expiresLocal.toLocaleString("es-MX", { timeZone: "America/Mexico_City" }) });
   },
