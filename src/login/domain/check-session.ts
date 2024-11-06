@@ -1,13 +1,16 @@
 export const checkSession = () => {
-    const item = localStorage.getItem("key");
+    const item = localStorage.getItem('session-storage');
+
     if (item) {
         const sessionData = JSON.parse(item);
-        const expirationTime = sessionData.expiresLocal;
-        const now = new Date().toLocaleString("es-MX", { timeZone: "America/Mexico_City" });
+        const expirationTime = sessionData.expirationDate;
+        const now = new Date();
+        const nowDate = new Date(now).toISOString();
 
-        if (now >= expirationTime) {
-            localStorage.removeItem("key");
+        if (nowDate  >= expirationTime) {
+            localStorage.removeItem('session-storage');
             alert('Sesión terminada');
         }
     }
 };
+
