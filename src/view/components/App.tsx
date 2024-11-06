@@ -11,16 +11,16 @@ const App = () => {
 
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const [alertMessage, setAlertMessage] = useState<string>('');
-   const updateDateIso = useAuthStore((state) => state.updateDateIso);
-   const setSessionData = useSessionStore((state) => state.setSessionData);
+   const updateDate = useAuthStore((state) => state.updateDate);
+   const SessionData = useSessionStore((state) => state.SessionData);
 
 
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     await initLogin(email, password, setShowAlert, setAlertMessage);
-    setSessionData(email,password)
-    updateDateIso();
+    SessionData(email,password)
+    updateDate();
   };
 
 
