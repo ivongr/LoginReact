@@ -9,15 +9,14 @@ interface IAuthStoreData  {
 };
 
 interface IAuthStoreAction  {
-  updateDateIso: () => void;
-
+  updateDate: () => void;
 };
 
 export const useAuthStore = create<IAuthStore>((set) => ({
   expirationDate: '',
-  updateDateIso: () => {
+  updateDate: () => {
     const globalTime = new Date();
-    const expirationTime = globalTime.getTime() + 2 * 60 * 60 * 1000; 
+    const expirationTime = globalTime.getTime() + 2; 
     set({ expirationDate : new Date(expirationTime).toISOString() });
   }
 }));
