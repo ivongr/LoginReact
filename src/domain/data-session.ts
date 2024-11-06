@@ -20,23 +20,23 @@ export const useSessionStore = create<ISessionStore>()(
     (set) => ({
       email: '',
       password: '',
-      expirationDate:'', 
+      expirationDate: '',
       SessionData: async (email, password) => {
-       const encryptPassword = await encryptValue(password);
-       const {expirationDate} = useAuthStore.getState();
+        const encryptPassword = await encryptValue(password);
+        const { expirationDate } = useAuthStore.getState();
         set({
-          email:email,
-          password:encryptPassword,
-         expirationDate: expirationDate,
+          email: email,
+          password: encryptPassword,
+          expirationDate: expirationDate,
         })
       },
- logout: () => {
-        set(() => 
+      logout: () => {
+        set(() =>
         (
           {
             email: '',
             password: '',
-            expirationDate:'', 
+            expirationDate: '',
           }
         ))
 
