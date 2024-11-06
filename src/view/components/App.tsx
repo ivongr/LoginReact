@@ -12,7 +12,6 @@ const App = () => {
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const [alertMessage, setAlertMessage] = useState<string>('');
    const updateDateIso = useAuthStore((state) => state.updateDateIso);
-   const updateDateLocal = useAuthStore((state) => state.updateDateLocal);
    const setSessionData = useSessionStore((state) => state.setSessionData);
 
 
@@ -22,7 +21,6 @@ const App = () => {
     await initLogin(email, password, setShowAlert, setAlertMessage);
     setSessionData(email,password)
     updateDateIso();
-    updateDateLocal();
   };
 
 
