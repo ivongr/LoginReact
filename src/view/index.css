@@ -78,6 +78,9 @@ form label input{
 .success {background-image: linear-gradient(to right, #28a745, 
   #56c150b3);} 
 
+.grey {background-image: linear-gradient(to right, #252725, 
+    #818181b3);} 
+
 
 .pulse-effect:active {
   transform: scale(0.9);
