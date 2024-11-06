@@ -12,14 +12,21 @@ const App = () => {
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const [alertMessage, setAlertMessage] = useState<string>('');
    const updateDate = useAuthStore((state) => state.updateDate);
-   const SessionData = useSessionStore((state) => state.SessionData);
+   const {SessionData,logout } = useSessionStore();
 
 
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmitLogin = async (event: FormEvent) => {
     event.preventDefault();
     await initLogin(email, password, setShowAlert, setAlertMessage);
-    SessionData(email,password)
+    SessionData(email,password);
+    updateDate();
+  };
+
+  const handleSubmitLogout = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    await finallyLogout(email, password, setShowAlert, setAlertMessage);
+    logout(email,password);
     updateDate();
   };
 
@@ -31,7 +38,8 @@ const App = () => {
         setEmail={setEmail}
         password={password}
         setPassword={setPassword}
-        onSubmit={handleSubmit}
+        onClick={handleSubmitLogin}
+        onClick={handleSubmitLogout}
       />
       {showAlert && (
         <Alert message={alertMessage} setShowAlert={setShowAlert} />

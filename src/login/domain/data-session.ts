@@ -3,6 +3,7 @@ import { create } from 'zustand';
 import { encryptValue } from '../../shared/domain/encrypt-value';
 import { useAuthStore } from './expires-date';
 import { ISessionStore } from './entities/login-session-Store';
+import { validateSessionStorageSchema } from './validations/validate-session-storage-schema';
 
 const initialvalue ={
   email: null,
@@ -30,7 +31,8 @@ export const useSessionStore = create<ISessionStore>()(
         });
       },
     }),
-    { name: 'session-storage'
+    { name: 'session-storage',
+      validate: (data) => validate(data,validateSessionStorageSchema)
     },
      /*const validateSessionStorage = name.map((names) => parse(validateSessionStorageSchema, users));*/
      
