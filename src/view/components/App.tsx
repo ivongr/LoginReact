@@ -1,10 +1,11 @@
 import { useState, FormEvent } from "react";
 import Alert from "./alert";
-import { handleLogout, initLogin } from "../../login/domain/init-login";
+import { initLogin } from "../../login/domain/init-login";
 import LoginForm from '../../login/view/components/login-form';
 import { useLoginStore } from "../../login/domain/store-login";
-import { useAuthStore } from "../../login/domain/expires-date";
 import { useSessionStore } from "../../login/domain/data-session";
+import { logoutLogin } from "../../login/domain/logoutLogin";
+import { useAuthStore } from "../../login/domain/expires-date";
 
 
 const App = () => {
@@ -12,16 +13,20 @@ const App = () => {
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const [alertMessage, setAlertMessage] = useState<string>('');
   const { SessionData } = useSessionStore();
+  const { updateDate } = useAuthStore();
+
 
   const handleSubmitLogin = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     await initLogin(email, password, setShowAlert, setAlertMessage);
-     SessionData(email, password);
+    updateDate();
+   SessionData(email, password);
   };
 
   const handleLogoutClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    await handleLogout(setShowAlert, setAlertMessage);
+    await logoutLogin(setShowAlert, setAlertMessage);
+   /*logout();*/
   };
 
   return (
