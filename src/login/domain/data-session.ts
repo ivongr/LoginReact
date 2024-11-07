@@ -32,7 +32,7 @@ export const useSessionStore = create<ISessionStore>()(
       },
     }),
     { name: 'session-storage',
-      validate: (data) => validate(data,validateSessionStorageSchema)
+      validate: (data) => validate(data, validateSessionStorageSchema),
     },
      /*const validateSessionStorage = name.map((names) => parse(validateSessionStorageSchema, users));*/
      
