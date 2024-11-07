@@ -7,7 +7,6 @@ import { useSessionStore } from "../../login/domain/data-session";
 import { logoutLogin } from "../../login/domain/logoutLogin";
 import { useAuthStore } from "../../login/domain/expires-date";
 
-
 const App = () => {
   const { email, setEmail, password, setPassword } = useLoginStore();
   const [showAlert, setShowAlert] = useState<boolean>(false);
@@ -15,18 +14,22 @@ const App = () => {
   const { SessionData } = useSessionStore();
   const { updateDate } = useAuthStore();
 
-
   const handleSubmitLogin = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await initLogin(email, password, setShowAlert, setAlertMessage);
-    updateDate();
-   SessionData(email, password);
+
+   
+      await initLogin(email, password, setShowAlert, setAlertMessage);
+
+      updateDate();
+  
+       SessionData(email, password);
+
+   
   };
 
   const handleLogoutClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     await logoutLogin(setShowAlert, setAlertMessage);
-   /*logout();*/
   };
 
   return (
