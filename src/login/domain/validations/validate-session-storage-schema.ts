@@ -4,4 +4,5 @@ export const validateSessionStorageSchema = object({
     email: string(),
     password: string(),
     date: string(),
+    version: number(),
   })

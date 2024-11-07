@@ -12,68 +12,57 @@ const initialvalue = {
   expirationDate: null
 }
 
+const storage = createJSONStorage(() => sessionStorage, {
+  reviver: (key, value) => {
+    try {
+
+
+      /*console.log(value + "objecto para validar")*/
+      /*const string = JSON.stringify([value]);*/
+
+
+
+      parse(validateSessionStorageSchema, value)
+
+
+      const currentDate = new Date();
+      const now = new Date(currentDate).toISOString();
+      if (value.expirationDate <= now) {
+        console.warn('La fecha de expiración ha pasado. Restableciendo los valores a iniciales.');
+        return value.email = null;
+      }
+
+      return value;
+    } catch (error) {
+      console.error('Error al validar los datos almacenados:', error);
+      return initialvalue;
+    }
+  },
+  replacer: (key, value) => {
+    return value;
+  }
+});
+
+
+
 
 export const useSessionStore = create<ISessionStore>()(
   persist(
     (set) => ({
       ...initialvalue,
       SessionData: async (email, password) => {
-        const { expirationDate } = useAuthStore.getState();
         const encryptPassword = await encryptValue(password);
+        const { expirationDate } = useAuthStore.getState();
         set({
           email: email,
           password: encryptPassword,
           expirationDate: expirationDate,
         });
       },
-
       logout: () => {
-        set({
-          ...initialvalue,
-        });
+        set({ ...initialvalue, });
       },
     }),
-    {
-      name: 'session-storage',
-      /*storage: {
-        getItem: async key => {
-          return JSON.parse(
-            (key, value) => {
-              const validateSessionStorage = name.map((names) => parse(validateSessionStorageSchema, users));
-              if (localStorage == undefined) {
-                set({
-                  ...initialvalue,
-                });
-              }
-            }
-          )
-        }
-      }*/
-
-     /*storage: createJSONStorage(() => sessionStorage, {
-        reviver: (key, value) => {
-          const validateJson = value.map((values: any) => parse(validateSessionStorageSchema, values));
-          if (validateJson === undefined){
-        return SessionData();
-           
-          }
-        }
-      })*/
-
-
-
-    },
-  )
+    { name: 'session-storage', storage },
+  ),
 );
-
-
-  /*const storage = createJSONStorage(() => sessionStorage, {
-        reviver: (key, value) => {
-          const validateJson = value.map((values: any) => parse(validateSessionStorageSchema, values));
-          if (value == null){
-        return initialvalue;
-          }
-          return value;
-        }
-      })*/
-

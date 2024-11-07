@@ -16,7 +16,7 @@ export const useAuthStore = create<IAuthStore>((set) => ({
   expirationDate: '',
   updateDate: () => {
     const globalTime = new Date();
-    const expirationTime = globalTime.getTime() + 2; 
+    const expirationTime = globalTime.getTime() + 2 ; 
     set({ expirationDate : new Date(expirationTime).toISOString() });
   }
 }));

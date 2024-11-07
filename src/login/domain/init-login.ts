@@ -16,6 +16,7 @@ export async function initLogin(
     parseLoginParams(loginParams);
     await loginSession(email, password);
     setAlertMessage("¡Sesión iniciada con éxito!");
+
   } catch (error: any) {
     setAlertMessage(error.message);
   } finally {
