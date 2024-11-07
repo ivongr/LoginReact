@@ -1,5 +1,5 @@
 import { ILogin } from '../../domain/entities/login';
-import { MouseEvent } from 'react';
+import { FormEvent, MouseEvent } from 'react';
 
 // function loginUser() {
 //   loginDependencies.service.login({ user: '', password: '' }).then(() => {
@@ -7,15 +7,17 @@ import { MouseEvent } from 'react';
 //   });
 // }
 
+
 interface ILoginFormProps extends ILogin {
   setEmail: (email: string) => void;
   setPassword: (password: string) => void;
-  onClick: (event:MouseEvent<HTMLButtonElement>) =>void;
-  onClickLo: (event:MouseEvent<HTMLButtonElement>) =>void;
+  onSubmit: (event: FormEvent<HTMLFormElement>) => void;
+  onLogout: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
-function LoginForm({ email, setEmail, password, setPassword, onClick, onClickLo }: ILoginFormProps) {
+
+const LoginForm: React.FC<ILoginFormProps> = ({ email, setEmail, password, setPassword, onSubmit, onLogout }) => {
   return (
-    <form id='login-form' >
+    <form id='login-form' onSubmit={onSubmit}>
       <h1 className='title'>Login</h1>
       <label>
         <i className='fa-solid fa-envelope' aria-label='Icon Email'></i>
@@ -40,17 +42,14 @@ function LoginForm({ email, setEmail, password, setPassword, onClick, onClickLo 
           required
         />
       </label>
-      <button id='btnlogin' className='btn success pulse-effect shadow-effect'
-      onClick={onClick} type='submit'>
+      <button id='btnlogin' className='btn success pulse-effect shadow-effect' type='submit'>
         Iniciar Sesión
       </button>
-
-      <button id='btnlogout' className='btn grey pulse-effect shadow-effect' 
-      onClickLo={onClick} type='submit'>
-       Finalizar Sesion
+      <button id='btnlogout' className='btn grey pulse-effect shadow-effect' onClick={onLogout} type='button'>
+        Finalizar Sesión
       </button>
     </form>
   );
-}
+};
 
 export default LoginForm;

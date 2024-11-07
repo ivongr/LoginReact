@@ -1,35 +1,28 @@
 import { useState, FormEvent } from "react";
 import Alert from "./alert";
-import { initLogin } from "../../login/domain/init-login";
+import { handleLogout, initLogin } from "../../login/domain/init-login";
 import LoginForm from '../../login/view/components/login-form';
 import { useLoginStore } from "../../login/domain/store-login";
 import { useAuthStore } from "../../login/domain/expires-date";
 import { useSessionStore } from "../../login/domain/data-session";
 
-const App = () => {
-   const { email, setEmail, password, setPassword } = useLoginStore();
 
+const App = () => {
+  const { email, setEmail, password, setPassword } = useLoginStore();
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const [alertMessage, setAlertMessage] = useState<string>('');
-   const updateDate = useAuthStore((state) => state.updateDate);
-   const {SessionData,logout } = useSessionStore();
+  const { SessionData } = useSessionStore();
 
-
-
-  const handleSubmitLogin = async (event: FormEvent) => {
+  const handleSubmitLogin = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     await initLogin(email, password, setShowAlert, setAlertMessage);
-    SessionData(email,password);
-    updateDate();
+     SessionData(email, password);
   };
 
-  const handleSubmitLogout = async (event: FormEvent<HTMLFormElement>) => {
+  const handleLogoutClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    await finallyLogout(email, password, setShowAlert, setAlertMessage);
-    logout(email,password);
-    updateDate();
+    await handleLogout(setShowAlert, setAlertMessage);
   };
-
 
   return (
     <>
@@ -38,8 +31,8 @@ const App = () => {
         setEmail={setEmail}
         password={password}
         setPassword={setPassword}
-        onClick={handleSubmitLogin}
-        onClick={handleSubmitLogout}
+        onSubmit={handleSubmitLogin}
+        onLogout={handleLogoutClick}
       />
       {showAlert && (
         <Alert message={alertMessage} setShowAlert={setShowAlert} />
