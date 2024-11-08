@@ -1,17 +1,13 @@
-import { IUserCredentials } from './login-credentials';
-import { ISessionStoreAction } from './login-session-store-Action';
-import { ISessionStoreData } from './login-session-Store-Data';
+import { IUserCredentials } from "./login-credentials";
 
-export interface ISessionStore extends IUserCredentials, ISessionStoreData, ISessionStoreAction {}
-
-const store: ISessionStore = {
-  email: '',
-  password: '',
-  expirationDate: null,
-  SessionData: function (email: string, password: string): void {
-    throw new Error('Function not implemented.');
-  },
-  logout: function (): void {
-    throw new Error('Function not implemented.');
-  },
-};
+export interface ISessionStoreData {
+  /*objecto  */
+  credentials: IUserCredentials
+  expirationDate: Date;
+}
+export interface ISessionStoreAction{
+  SessionData:  (email:string, password:string) => void;
+  logout: () => void;
+}
+export interface ISessionStore extends  ISessionStoreData, ISessionStoreAction {
+}
