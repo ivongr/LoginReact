@@ -6,7 +6,7 @@ export interface ISessionStoreData {
   expirationDate: Date;
 }
 export interface ISessionStoreAction{
-  SessionData:  (email:string, password:string) => void;
+  sessionData:  (email:string, password:string) => void;
   logout: () => void;
 }
 export interface ISessionStore extends  ISessionStoreData, ISessionStoreAction {
