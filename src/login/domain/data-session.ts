@@ -10,41 +10,26 @@ const initialvalue = {
   email: null,
   password: null,
   expirationDate: null
-}
-
-const storage = createJSONStorage(() => sessionStorage, {
-  reviver: (key, value) => {
-    try {
-
-
-      /*console.log(value + "objecto para validar")*/
-      /*const string = JSON.stringify([value]);*/
-
-
-
-      parse(validateSessionStorageSchema, value)
-
-
-      const currentDate = new Date();
-      const now = new Date(currentDate).toISOString();
-      if (value.expirationDate <= now) {
-        console.warn('La fecha de expiración ha pasado. Restableciendo los valores a iniciales.');
-        return value.email = null;
+};
+const storage = createJSONStorage(() => localStorage,
+  {
+    reviver: (key, value) => {
+      try {
+        parse(validateSessionStorageSchema, value);
+        const currentDate = new Date().toISOString();
+        if (value.expirationDate <= currentDate) {
+          console.warn('La fecha de expiración ha pasado. Restableciendo los valores a iniciales.');
+          return initialvalue;
+        } return value;
       }
-
-      return value;
-    } catch (error) {
-      console.error('Error al validar los datos almacenados:', error);
-      return initialvalue;
-    }
-  },
-  replacer: (key, value) => {
-    return value;
-  }
-});
-
-
-
+      catch (error) {
+        console.error
+          ('Error al validar los datos almacenados:', error);
+        return initialvalue;
+      }
+    },
+    replacer: (key, value) => value,
+  });
 
 export const useSessionStore = create<ISessionStore>()(
   persist(
@@ -52,17 +37,17 @@ export const useSessionStore = create<ISessionStore>()(
       ...initialvalue,
       SessionData: async (email, password) => {
         const encryptPassword = await encryptValue(password);
-        const { expirationDate } = useAuthStore.getState();
-        set({
-          email: email,
+        const expirationDate = new Date(new Date().getTime() + 2 * 60 * 60 * 1000).toISOString();
+             set({
+          email,
           password: encryptPassword,
-          expirationDate: expirationDate,
+          expirationDate,
         });
       },
       logout: () => {
-        set({ ...initialvalue, });
+        set({ ...initialvalue });
       },
     }),
-    { name: 'session-storage', storage },
+    { name: 'session-storage', storage },  // El nombre es solo para identificar en el storage
   ),
 );

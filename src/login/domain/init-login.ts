@@ -1,3 +1,4 @@
+// src/login/domain/init-login.ts
 import { useSessionStore } from "../../login/domain/data-session";
 import { ILoginParams } from './entities/login-params';
 import { loginSession } from './session-login';
@@ -10,18 +11,19 @@ export async function initLogin(
   setAlertMessage: (message: string) => void
 ): Promise<void> {
   const loginParams: ILoginParams = { email, password };
-  
-  try {
-   
-    parseLoginParams(loginParams);
-    await loginSession(email, password);
-    setAlertMessage("¡Sesión iniciada con éxito!");
+  const { SessionData } = useSessionStore.getState();
 
+  try {
+    parseLoginParams(loginParams);
+    const user = await loginSession(email, password);
+
+    if (user) {
+      await SessionData(user.email, user.password);
+      setAlertMessage("¡Sesión iniciada con éxito!");
+    }
   } catch (error: any) {
     setAlertMessage(error.message);
   } finally {
     setShowAlert(true);
   }
 }
-
-
