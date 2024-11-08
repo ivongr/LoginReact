@@ -6,16 +6,23 @@ import { ISessionStore } from './entities/login-session-store';
 import { parseSessionStoreData } from './validations/session-store-validations';
 
 const initialvalue = {
-  email: 'suki',
+  email: null,
   password: null,
   expirationDate: null,
 };
 
 const stateCreator: StateCreator<ISessionStore> = (set) => ({
   ...initialvalue,
-  SessionData: async (email, password) => {
+
+  credentials: {
+    email,
+    password,
+    expirationDate
+  }
+
+  sessionData: async (email, password) => {
     const encryptPassword = await encryptValue(password);
-    const expirationDate = new Date(new Date().getTime() + 2 * 60 * 100).toISOString();
+    const expirationDate = new Date(new Date().getTime() + 2 * 60 * 100);
     set({
       email,
       password: encryptPassword,
@@ -26,21 +33,30 @@ const stateCreator: StateCreator<ISessionStore> = (set) => ({
     set({ ...initialvalue });
   },
 });
+
 const persistOptions: PersistOptions<ISessionStore> = {
   name: 'session-storage',
   merge(persistedState, currentState) {
-    const parsedState = parseSessionStoreData(persistedState);
+    try {
+      const parsedState = parseSessionStoreData(persistedState);
 
-    if (!parsedState.expirationDate) return currentState;
+      /**si no tiene fecha de expiracion */
+      if (!parsedState.expirationDate) return currentState;
 
-    const isSessionAlive = new Date(parsedState.expirationDate).getTime() >= Date.now();
+      /*validacion de la fecha*/
 
-    if (!isSessionAlive) return currentState;
+      const isSessionAlive = new Date(parsedState.expirationDate).getTime() >= Date.now();
 
-    return {
-      ...currentState,
-      ...parsedState,
-    };
+      /*si es token no expira */
+      if (!isSessionAlive) return currentState;
+
+      return {
+        ...currentState,
+        ...parsedState,
+      };
+    } catch {
+      return currentState
+    }
   },
 };
 

@@ -1,9 +1,10 @@
 import { array, email, maxLength, minLength, nonEmpty, object, parse, pipe, string } from 'valibot';
-import { ILogin } from '../entities/login';
+
 import { ILoginParams } from '../entities/login-params';
 import { ILoginResponse } from '../entities/login-response';
 import { LOGIN_ERROR_MESSAGES } from '../constants/login-error-messages';
 import { LOGIN_FIELD_LENGTH } from '../constants/login-constants';
+import { IUserCredentials } from '../entities/login-credentials';
 
 export const userCredentialsSchema = object({
   email: pipe(
@@ -18,23 +19,23 @@ export const userCredentialsSchema = object({
   ),
 });
 
-export const loginParamsSchema = object({
+export const userParamsSchema = object({
   email: string(),
   password: string(),
 });
 
-export const loginResponseSchema = object({
+export const  userResponseSchema = object({
   data: array(userCredentialsSchema),
 });
 
-export function parseUserCredentials(data: unknown): ILogin {
+export function parseUserCredentials(data: unknown): IUserCredentials {
   return parse(userCredentialsSchema, data);
 }
 
-export function parseLoginParams(data: unknown): ILoginParams {
-  return parse(loginParamsSchema, data);
+export function parseUserParams(data: unknown): ILoginParams {
+  return parse(userParamsSchema, data);
 }
 
-export function parseLoginResponse(data: unknown): ILoginResponse {
-  return parse(loginResponseSchema, data);
+export function parseUserResponse(data: unknown): ILoginResponse {
+  return parse(userResponseSchema, data);
 }
