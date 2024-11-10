@@ -4,29 +4,25 @@ import { create, StateCreator } from 'zustand';
 import { encryptValue } from '../../shared/domain/encrypt-value';
 import { ISessionStore } from './entities/login-session-store';
 import { parseSessionStoreData } from './validations/session-store-validations';
+import { isoDateTime, pipe, string, transform } from 'valibot';
 
 const initialvalue = {
-  email: null,
-  password: null,
-  expirationDate: null,
+  credentials:{email: "",
+  password: ""} ,
+  expirationDate: new Date(0),
 };
 
 const stateCreator: StateCreator<ISessionStore> = (set) => ({
   ...initialvalue,
 
-  credentials: {
-    email,
-    password,
-    expirationDate
-  }
-
-  sessionData: async (email, password) => {
+sessionData: async (email, password) => {
     const encryptPassword = await encryptValue(password);
     const expirationDate = new Date(new Date().getTime() + 2 * 60 * 100);
     set({
-      email,
-      password: encryptPassword,
-      expirationDate,
+      credentials:{email,
+        password:encryptPassword},
+       expirationDate,
+  
     });
   },
   logout: () => {
@@ -44,8 +40,10 @@ const persistOptions: PersistOptions<ISessionStore> = {
       if (!parsedState.expirationDate) return currentState;
 
       /*validacion de la fecha*/
-
-      const isSessionAlive = new Date(parsedState.expirationDate).getTime() >= Date.now();
+      const DateSchema = pipe( string(), isoDateTime(), transform((isoString) => new Date(isoString)) ); 
+      const expirationDate = DateSchema(parsedState.expirationDate);
+      // Transformar la cadena ISO a Date );
+      const isSessionAlive = expirationDate >= Date.now();
 
       /*si es token no expira */
       if (!isSessionAlive) return currentState;
