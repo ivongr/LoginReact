@@ -2,7 +2,7 @@
 import { useSessionStore } from "../../login/domain/data-session";
 import { ILoginParams } from './entities/login-params';
 import { loginSession } from './session-login';
-import { parseLoginParams } from './validations/login-validations';
+import { parseUserParams } from './validations/login-validations';
 
 export async function initLogin(
   email: string,
@@ -11,14 +11,14 @@ export async function initLogin(
   setAlertMessage: (message: string) => void
 ): Promise<void> {
   const loginParams: ILoginParams = { email, password };
-  const { SessionData } = useSessionStore.getState();
+  const { sessionData } = useSessionStore.getState();
 
   try {
-    parseLoginParams(loginParams);
+    parseUserParams(loginParams);
     const user = await loginSession(email, password);
 
     if (user) {
-      await SessionData(user.email, user.password);
+      await sessionData(user.email, user.password);
       setAlertMessage("¡Sesión iniciada con éxito!");
     }
   } catch (error: any) {
