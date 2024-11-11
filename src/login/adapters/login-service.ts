@@ -1,21 +1,21 @@
-import { ILogin } from "../domain/entities/login";
+import { IUserCredentials} from "../domain/entities/user-credentials";
 import { ILoginDataSource } from "../domain/entities/login-data-source";
-import { ILoginParams } from "../domain/entities/user-params";
+import { IUserParams } from "../domain/entities/user-params";
 import { ILoginService } from "../domain/entities/login-service";
-import { parseLoginParams, parseLoginResponse } from "../domain/validations/login-validations";
+import { parseUserParams, parseUserResponse } from "../domain/validations/login-validations";
 
 export class LoginService implements ILoginService {
 constructor(private readonly dataSource: ILoginDataSource) {}
 
-async get(params?: ILoginParams): Promise<ILogin[]>{
-    let parsedParams: ILoginParams;
+async get(params?: IUserParams): Promise<IUserCredentials[]>{
+    let parsedParams: IUserParams;
 
     if(params){
-        parsedParams = parseLoginParams(params);
+        parsedParams = parseUserParams(params);
     }
 
     const resp = await this.dataSource.get(parsedParams);
-    const parsedResp = parseLoginResponse(resp)
+    const parsedResp = parseUserResponse(resp)
 
     return parsedResp.data;
 }

@@ -1,6 +1,6 @@
 import { array, email, maxLength, minLength, nonEmpty, object, parse, pipe, string } from 'valibot';
 
-import { ILoginParams } from '../entities/user-params';
+import { IUserParams } from '../entities/user-params';
 import { ILoginResponse } from '../entities/login-response';
 import { LOGIN_ERROR_MESSAGES } from '../constants/login-error-messages';
 import { LOGIN_FIELD_LENGTH } from '../constants/login-constants';
@@ -32,7 +32,7 @@ export function parseUserCredentials(data: unknown): IUserCredentials {
   return parse(userCredentialsSchema, data);
 }
 
-export function parseUserParams(data: unknown): ILoginParams {
+export function parseUserParams(data: unknown): IUserParams {
   return parse(userParamsSchema, data);
 }
 
