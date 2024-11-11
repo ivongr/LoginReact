@@ -12,19 +12,15 @@ const App = () => {
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const [alertMessage, setAlertMessage] = useState<string>('');
   const { sessionData } = useSessionStore();
-  const { updateDate } = useAuthStore();
 
   const handleSubmitLogin = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-   
-      await initLogin(email, password, setShowAlert, setAlertMessage);
 
-      updateDate();
-  
-       sessionData(email, password);
+    await initLogin(email, password, setShowAlert, setAlertMessage);
+    sessionData(email, password);
 
-   
+
   };
 
   const handleLogoutClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
