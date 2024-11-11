@@ -5,7 +5,6 @@ import LoginForm from '../../login/view/components/login-form';
 import { useLoginStore } from "../../login/domain/store-login";
 import { useSessionStore } from "../../login/domain/data-session";
 import { logoutLogin } from "../../login/domain/logoutLogin";
-import { useAuthStore } from "../../login/domain/expires-date";
 
 const App = () => {
   const { email, setEmail, password, setPassword } = useLoginStore();
