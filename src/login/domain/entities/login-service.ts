@@ -1,6 +1,6 @@
 import { IUserCredentials } from "./user-credentials";
-import { ILoginParams } from "./login-params";
+import { IUserParams } from "./user-params";
 
 export interface ILoginService{
-    get(params?: ILoginParams): Promise<IUserCredentials[]>;
+    get(params?: IUserParams): Promise<IUserCredentials[]>;
 }

@@ -1,6 +1,6 @@
 import { ILogin } from "../domain/entities/login";
 import { ILoginDataSource } from "../domain/entities/login-data-source";
-import { ILoginParams } from "../domain/entities/login-params";
+import { ILoginParams } from "../domain/entities/user-params";
 import { ILoginService } from "../domain/entities/login-service";
 import { parseLoginParams, parseLoginResponse } from "../domain/validations/login-validations";
 

@@ -1,5 +1,5 @@
-import { ILoginParams } from "./login-params";
+import { IUserParams } from "./user-params";
 
 export interface ILoginDataSource {
-    get(params?: ILoginParams): Promise<unknown>
+    get(params?: IUserParams): Promise<unknown>
 }

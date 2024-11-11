@@ -1,6 +1,6 @@
 // src/login/domain/init-login.ts
 import { useSessionStore } from "../../login/domain/data-session";
-import { ILoginParams } from './entities/login-params';
+import { ILoginParams } from './entities/user-params';
 import { loginSession } from './session-login';
 import { parseUserParams } from './validations/login-validations';
 
