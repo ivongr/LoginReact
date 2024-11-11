@@ -4,14 +4,13 @@ import { create, StateCreator } from 'zustand';
 import { encryptValue } from '../../shared/domain/encrypt-value';
 import { ISessionStore } from './entities/session-store-data';
 import { parseSessionStoreData } from './validations/session-store-validations';
-import { date, isoTimestamp, pipe, string, transform } from 'valibot';
 
 const initialvalue = {
   credentials: {
     email: "",
     password: ""
   },
-  expirationDate: new Date(0),
+  expirationDate: new Date(),
 };
 
 const stateCreator: StateCreator<ISessionStore> = (set) => ({
@@ -19,7 +18,7 @@ const stateCreator: StateCreator<ISessionStore> = (set) => ({
 
   sessionData: async (email, password) => {
     const encryptPassword = await encryptValue(password);
-    const expirationDate = new Date(new Date().getTime() + 2 * 60 * 100);
+    const expirationDate = new Date(new Date().getTime() + 2 * 60 * 60 * 1000);
     set({
       credentials: {
         email,
@@ -47,7 +46,7 @@ const persistOptions: PersistOptions<ISessionStore> = {
       const now = new Date();
       const isSessionAlive = parsedState.expirationDate >= now;
 
-      /*si es token no expira */
+      /*si el token no expira */
       if (!isSessionAlive) return currentState;
 
 
@@ -56,7 +55,7 @@ const persistOptions: PersistOptions<ISessionStore> = {
         ...parsedState,
       };
     } catch {
-      return currentState
+      return currentState;
     }
   },
 };
