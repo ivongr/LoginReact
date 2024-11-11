@@ -1,4 +1,4 @@
-import { IUserCredentials } from "./login-credentials";
+import { IUserCredentials } from "./user-credentials";
 
 export interface ISessionStoreData {
   /*objecto  */
