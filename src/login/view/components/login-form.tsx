@@ -1,4 +1,4 @@
-import { IUserCredentials } from '../../domain/entities/login-credentials';
+import { IUserCredentials } from '../../domain/entities/user-credentials';
 import { FormEvent } from 'react';
 
 // function loginUser() {

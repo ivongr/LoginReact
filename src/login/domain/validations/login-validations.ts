@@ -4,7 +4,7 @@ import { ILoginParams } from '../entities/login-params';
 import { ILoginResponse } from '../entities/login-response';
 import { LOGIN_ERROR_MESSAGES } from '../constants/login-error-messages';
 import { LOGIN_FIELD_LENGTH } from '../constants/login-constants';
-import { IUserCredentials } from '../entities/login-credentials';
+import { IUserCredentials } from '../entities/user-credentials';
 
 export const userCredentialsSchema = object({
   email: pipe(
