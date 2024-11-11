@@ -1,5 +1,5 @@
-import { ILogin } from '../../domain/entities/login';
-import { FormEvent, MouseEvent } from 'react';
+import { IUserCredentials } from '../../domain/entities/login-credentials';
+import { FormEvent } from 'react';
 
 // function loginUser() {
 //   loginDependencies.service.login({ user: '', password: '' }).then(() => {
@@ -8,7 +8,9 @@ import { FormEvent, MouseEvent } from 'react';
 // }
 
 
-interface ILoginFormProps extends ILogin {
+interface ILoginFormProps extends IUserCredentials {
+  email: string,
+  password: string,
   setEmail: (email: string) => void;
   setPassword: (password: string) => void;
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;

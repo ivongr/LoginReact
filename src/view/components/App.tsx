@@ -11,7 +11,7 @@ const App = () => {
   const { email, setEmail, password, setPassword } = useLoginStore();
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const [alertMessage, setAlertMessage] = useState<string>('');
-  const { SessionData } = useSessionStore();
+  const { sessionData } = useSessionStore();
   const { updateDate } = useAuthStore();
 
   const handleSubmitLogin = async (event: FormEvent<HTMLFormElement>) => {
@@ -22,7 +22,7 @@ const App = () => {
 
       updateDate();
   
-       SessionData(email, password);
+       sessionData(email, password);
 
    
   };
