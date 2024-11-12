@@ -1,6 +1,5 @@
-import { IUserParams } from './entities/user-params';
+import { useSessionStore } from "../../login/domain/data-session";
 import { loginSession } from './session-login';
-import { parseUserParams } from './validations/login-validations';
 
 export async function initLogin(
   email: string,
@@ -8,15 +7,17 @@ export async function initLogin(
   setShowAlert: (show: boolean) => void,
   setAlertMessage: (message: string) => void
 ): Promise<void> {
-  const loginParams: IUserParams = { email, password };
-
+  const { sessionData } = useSessionStore.getState();
 
   try {
-    parseUserParams(loginParams);
-     await loginSession(email, password);
+    const user = await loginSession(email, password);
 
+    if (user) {
+      await sessionData(user.email, user.password);
       setAlertMessage("¡Sesión iniciada con éxito!");
-  
+    } else {
+      setAlertMessage("Correo electrónico o contraseña incorrectos.");
+    }
   } catch (error: any) {
     setAlertMessage(error.message);
   } finally {

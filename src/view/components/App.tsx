@@ -1,25 +1,19 @@
+// src/App.tsx
 import { useState, FormEvent } from "react";
 import Alert from "./alert";
 import { initLogin } from "../../login/domain/init-login";
 import LoginForm from '../../login/view/components/login-form';
 import { useLoginStore } from "../../login/domain/store-login";
-import { useSessionStore } from "../../login/domain/data-session";
 import { logoutLogin } from "../../login/domain/logoutLogin";
 
 const App = () => {
   const { email, setEmail, password, setPassword } = useLoginStore();
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const [alertMessage, setAlertMessage] = useState<string>('');
-  const { sessionData } = useSessionStore();
 
   const handleSubmitLogin = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-
     await initLogin(email, password, setShowAlert, setAlertMessage);
-    sessionData(email, password);
-
-
   };
 
   const handleLogoutClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
