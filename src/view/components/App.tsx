@@ -1,7 +1,7 @@
 import { FormEvent, useState } from "react";
 
 import { initLogin } from "../../login/domain/init-login";
-import { logoutLogin } from "../../login/domain/logoutLogin";
+import { logoutLogin } from "../../login/domain/logout-Login";
 import { useLoginStore } from "../../login/domain/store-login";
 import LoginForm from '../../login/view/components/login-form';
 import Alert from "./alert";

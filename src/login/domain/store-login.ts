@@ -1,22 +1,22 @@
+import {create, StateCreator} from 'zustand';
 
-import {create} from 'zustand';
+interface ICredentialsStore extends ICredentialsStoreData, ICredentialsAction{
 
-
-type State = {
+}
+interface ICredentialsStoreData{
   email: string
   password: string
 }
 
-type Action = {
-  setEmail: (email: State['email']) => void,
-  setPassword: (password: State['password']) => void
+interface ICredentialsAction {
+  setEmail: (email:string) => void,
+  setPassword: (password:string) => void
 }
 
-export const useLoginStore = create<State & Action>((set) => ({
+const loginForm: StateCreator<ICredentialsStore> = (set) => ({
   email: '',
   password: '',
-  setEmail: (email) => set(() => ({email:email})),
-  setPassword: (password) => set(() => ({ password:password})),
-}));
-
-
+  setEmail:(email) => set({email}),
+  setPassword: (password) => set({password}),
+})
+export const useLoginStore = create<ICredentialsStore>()((loginForm));
