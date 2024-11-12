@@ -1,5 +1,6 @@
-import { getUsers, } from '../../users/domain/get-users';
 import { IUser } from '../../users/domain/entities/user';
+import { getUsers, } from '../../users/domain/get-users';
+
 async function loginSession(email: string, password: string): Promise<IUser>{
   try {
     const formattedEmail = email.toLowerCase();

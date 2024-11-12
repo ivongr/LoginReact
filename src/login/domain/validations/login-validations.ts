@@ -1,10 +1,10 @@
 import { array, email, maxLength, minLength, nonEmpty, object, parse, pipe, string } from 'valibot';
 
-import { IUserParams } from '../entities/user-params';
-import { ILoginResponse } from '../entities/login-response';
-import { LOGIN_ERROR_MESSAGES } from '../constants/login-error-messages';
 import { LOGIN_FIELD_LENGTH } from '../constants/login-constants';
+import { LOGIN_ERROR_MESSAGES } from '../constants/login-error-messages';
+import { ILoginResponse } from '../entities/login-response';
 import { IUserCredentials } from '../entities/user-credentials';
+import { IUserParams } from '../entities/user-params';
 
 export const userCredentialsSchema = object({
   email: pipe(

@@ -1,13 +1,13 @@
 import { date, isoTimestamp, object, parse, pipe, string, transform } from 'valibot';
 
-import { ISessionStoreData } from '../entities/session-store-data';
 import { EXPIRATION_DATE_ERROR_MESSAGES, SESSION_ERROR_MESSAGES } from '../constants/session-store-error-messages';
+import { ISessionStoreData } from '../entities/session-store-data';
 
 
 const expirationDateSchema = pipe(
   string(EXPIRATION_DATE_ERROR_MESSAGES.required),
   isoTimestamp(EXPIRATION_DATE_ERROR_MESSAGES.invalidFormat),
-  transform(expirationDate => new Date(expirationDate))
+  transform((expirationDate) => new Date(expirationDate))
 );
 
 export const sessionStoreDataSchema = object({

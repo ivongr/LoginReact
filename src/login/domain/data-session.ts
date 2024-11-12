@@ -1,5 +1,5 @@
-import { persist, PersistOptions } from 'zustand/middleware';
 import { create, StateCreator } from 'zustand';
+import { persist, PersistOptions } from 'zustand/middleware';
 
 import { encryptValue } from '../../shared/domain/encrypt-value';
 import { ISessionStore } from './entities/session-store-data';

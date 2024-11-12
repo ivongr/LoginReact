@@ -10,16 +10,14 @@ export async function initLogin(
   const { sessionData } = useSessionStore.getState();
 
   try {
+
     const user = await loginSession(email, password);
 
-    if (user) {
       await sessionData(user.email, user.password);
       setAlertMessage("¡Sesión iniciada con éxito!");
-    } else {
-      setAlertMessage("Correo electrónico o contraseña incorrectos.");
-    }
-  } catch (error: any) {
-    setAlertMessage(error.message);
+   
+  } catch  {
+    setAlertMessage("Correo electrónico o contraseña incorrectos.");
   } finally {
     setShowAlert(true);
   }

@@ -1,10 +1,10 @@
-// src/App.tsx
-import { useState, FormEvent } from "react";
-import Alert from "./alert";
+import { FormEvent, useState } from "react";
+
 import { initLogin } from "../../login/domain/init-login";
-import LoginForm from '../../login/view/components/login-form';
-import { useLoginStore } from "../../login/domain/store-login";
 import { logoutLogin } from "../../login/domain/logoutLogin";
+import { useLoginStore } from "../../login/domain/store-login";
+import LoginForm from '../../login/view/components/login-form';
+import Alert from "./alert";
 
 const App = () => {
   const { email, setEmail, password, setPassword } = useLoginStore();

@@ -1,7 +1,7 @@
-import { IUserCredentials} from "../domain/entities/user-credentials";
 import { ILoginDataSource } from "../domain/entities/login-data-source";
-import { IUserParams } from "../domain/entities/user-params";
 import { ILoginService } from "../domain/entities/login-service";
+import { IUserCredentials } from "../domain/entities/user-credentials";
+import { IUserParams } from "../domain/entities/user-params";
 import { parseUserParams, parseUserResponse } from "../domain/validations/login-validations";
 
 export class LoginService implements ILoginService {
