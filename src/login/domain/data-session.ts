@@ -2,10 +2,10 @@ import { create, StateCreator } from 'zustand';
 import { persist, PersistOptions } from 'zustand/middleware';
 
 import { encryptValue } from '../../shared/domain/encrypt-value';
-import { ISessionStore } from './entities/session-store-data';
+import { ISessionStore, ISessionStoreData } from './entities/session-store-data';
 import { parseSessionStoreData } from './validations/session-store-validations';
 
-const initialvalue = {
+const initialvalue: ISessionStoreData = {
   credentials: {
     email: "",
     password: ""
@@ -43,8 +43,7 @@ const persistOptions: PersistOptions<ISessionStore> = {
       if (!parsedState.expirationDate) return currentState;
 
 
-      const now = new Date();
-      const isSessionAlive = parsedState.expirationDate >= now;
+      const isSessionAlive = parsedState.expirationDate.getTime() >= Date.now();
 
       /*si el token no expira */
       if (!isSessionAlive) return currentState;
