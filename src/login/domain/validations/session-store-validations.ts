@@ -1,19 +1,17 @@
-import { date, email, isoTimestamp, maxLength, minLength, object, parse, pipe, regex, string, transform } from 'valibot';
+import { date, email, isoTimestamp, maxLength, minLength, object, parse, pipe, regex, string, transform, union } from 'valibot';
 
 import { LOGIN_ERROR_MESSAGES } from '../constants/login-error-messages';
 import { SESSION_STORE_FIELD_LENGTH, SESSION_STORE_FIELD_REGEX } from '../constants/session-store-constants';
-import { EXPIRATION_DATE_ERROR_MESSAGES, SESSION_ERROR_MESSAGES } from '../constants/session-store-error-messages';
+import { EXPIRATION_DATE_ISO_ERROR_MESSAGES, SESSION_ERROR_MESSAGES } from '../constants/session-store-error-messages';
 import { ISessionStoreData } from '../entities/session-store-data';
 
+const validateDateIsoSchema = union([
+  date(EXPIRATION_DATE_ISO_ERROR_MESSAGES.invalidFormaDate),
+  pipe(string(EXPIRATION_DATE_ISO_ERROR_MESSAGES.required),
+  isoTimestamp(EXPIRATION_DATE_ISO_ERROR_MESSAGES.invalidFormaIso))]);
 
 const expirationDateSchema = pipe(
-  string(EXPIRATION_DATE_ERROR_MESSAGES.required),
-  isoTimestamp(EXPIRATION_DATE_ERROR_MESSAGES.invalidFormat),
-  transform((expirationDate) => new Date(expirationDate))
-);
-
-const expirationDateDateSchema = pipe(
-  date(EXPIRATION_DATE_ERROR_MESSAGES.required),
+  validateDateIsoSchema,
   transform((expirationDate) => new Date(expirationDate))
 );
 
@@ -25,20 +23,23 @@ export const sessionStoreDataSchema = object({
     password: pipe(string(SESSION_ERROR_MESSAGES.credentials.password.required),
       minLength(SESSION_STORE_FIELD_LENGTH.password.min, LOGIN_ERROR_MESSAGES.password.invalidMinLength),
       maxLength(SESSION_STORE_FIELD_LENGTH.password.max, LOGIN_ERROR_MESSAGES.password.invalidMaxLength),
-      regex(SESSION_STORE_FIELD_REGEX.password.lowercaseLetter, SESSION_ERROR_MESSAGES.credentials.password.lowercaseLetter), 
+      regex(SESSION_STORE_FIELD_REGEX.password.lowercaseLetter, SESSION_ERROR_MESSAGES.credentials.password.lowercaseLetter),
       regex(SESSION_STORE_FIELD_REGEX.password.uppercaseLetter, SESSION_ERROR_MESSAGES.credentials.password.uppercaseLetter),
       regex(SESSION_STORE_FIELD_REGEX.password.containNumber, SESSION_ERROR_MESSAGES.credentials.password.containNumber),
+      regex(SESSION_STORE_FIELD_REGEX.password.consecutiveCharacters, SESSION_ERROR_MESSAGES.credentials.password.consecutiveCharacters),
+      regex(SESSION_STORE_FIELD_REGEX.password.repeatThreetimes, SESSION_ERROR_MESSAGES.credentials.password.repeatThreetimes)
     )
   }),
-  expirationDate: expirationDateDateSchema,
+  expirationDate: expirationDateSchema,
 });
 
-const result = parse(sessionStoreDataSchema,{
+const result = parse(sessionStoreDataSchema, {
   credentials: {
-  email: "suki@gmail.com",
-  password: "12345Mn"
-},
-  expirationDate: Date.now()});
+    email: "",
+    password: ""
+  },
+  expirationDate: new Date()
+});
 console.log(result);
 
 

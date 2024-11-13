@@ -12,6 +12,9 @@ export const SESSION_STORE_FIELD_REGEX = {
     password: {
         lowercaseLetter: /[a-z]/,
         uppercaseLetter: /[A-Z]/,
-        containNumber: /[0-9]/
+        containNumber: /[0-9]/,
+        consecutiveCharacters: /^(?!.*(.)\1)/,
+        repeatThreetimes: /(.)\1{2,}/
+
     },
 };

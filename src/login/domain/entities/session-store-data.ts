@@ -2,7 +2,7 @@ import { IUserCredentials } from "./user-credentials";
 
 export interface ISessionStoreData {
   /*objecto  */
-  credentials: IUserCredentials
+  credentials: IUserCredentials | null;
   expirationDate: Date;
 }
 export interface ISessionStoreAction{
