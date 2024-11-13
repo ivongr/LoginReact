@@ -6,10 +6,7 @@ import { ISessionStore, ISessionStoreData } from './entities/session-store-data'
 import { parseSessionStoreData } from './validations/session-store-validations';
 
 const initialvalue: ISessionStoreData = {
-  credentials: {
-    email: "",
-    password: ""
-  },
+  credentials:null,
   expirationDate: new Date(),
 };
 
