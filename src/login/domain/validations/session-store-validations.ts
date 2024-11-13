@@ -14,7 +14,8 @@ const expirationDateSchema = pipe(
   transform((expirationDate) => new Date(expirationDate))
 );
 
-const credentialsSchema =nullable(object({
+const credentialsSchema = nullable(
+  object({
     email: pipe(
       string(SESSION_ERROR_MESSAGES.credentials.email.required),
       email(SESSION_ERROR_MESSAGES.credentials.email.invalidFormat)
@@ -27,11 +28,12 @@ const credentialsSchema =nullable(object({
       regex(SESSION_STORE_FIELD_REGEX.password.uppercaseLetter, SESSION_ERROR_MESSAGES.credentials.password.uppercaseLetter),
       regex(SESSION_STORE_FIELD_REGEX.password.containNumber, SESSION_ERROR_MESSAGES.credentials.password.containNumber),
       regex(SESSION_STORE_FIELD_REGEX.password.consecutiveCharacters, SESSION_ERROR_MESSAGES.credentials.password.consecutiveCharacters),
-      regex(SESSION_STORE_FIELD_REGEX.password.repeatThreetimes, SESSION_ERROR_MESSAGES.credentials.password.repeatThreetimes)
     )
-  }), "null");
+  }),
+  null 
+);
 
-export const sessionStoreDataSchema = object({
+const sessionStoreDataSchema = object({
   credentials: credentialsSchema,
   expirationDate: expirationDateSchema,
 });
@@ -47,5 +49,4 @@ console.log(result);
 export function parseSessionStoreData(data: unknown): ISessionStoreData {
   return parse(sessionStoreDataSchema, data);
 }
-
 

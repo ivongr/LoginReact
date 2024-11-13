@@ -14,7 +14,6 @@ export const SESSION_STORE_FIELD_REGEX = {
         uppercaseLetter: /[A-Z]/,
         containNumber: /[0-9]/,
         consecutiveCharacters: /^(?!.*(.)\1)/,
-        repeatThreetimes: /(.)\1{2,}/
 
     },
 };
